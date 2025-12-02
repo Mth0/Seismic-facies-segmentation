@@ -11,6 +11,23 @@ from sklearn.model_selection import train_test_split
 from dataset import *
 
 class PercentileClip:
+    """
+    Normalize an image by clipping pixel values based on percentile ranges.
+
+    This transform computes the `lower` and `upper` percentiles of the input
+    image and rescales all pixel values to the [0, 1] range using those
+    percentile thresholds. Values below the lower percentile become 0, values
+    above the upper percentile become 1.
+
+    Args
+        lower (float, default=5) : Lower percentile used for clipping.
+        upper (float, default=95) : Upper percentile used for clipping.
+        cache (bool, default=True) : Placeholder flag for optional caching of percentile values
+
+    Returns
+        sample (dict): Updated sample dictionary with the normalized image.
+    """
+
     def __init__(self, lower=5, upper=95, cache=True):
         self.lower = lower
         self.upper = upper
