@@ -14,9 +14,9 @@ class SDataset(Dataset):
         Args:
             image_path (str): path to .npy file containing all images
             mask_path (str, optional): path to .npy file containing all segmentation masks
-            sample (list[tuple[Tensor, Tensor]], optional): lista de pares (img, mask)
+            sample (list[tuple[Tensor, Tensor]], optional): (img, mask) pairs list
             transform (callable, optional): transform applied to both image and mask
-            device (str): The device where the computations are going to be made.
+            device (str): The device where the computations are going to be made
         """
         if sample is not None:
             imgs, masks = zip(*sample)
@@ -72,7 +72,7 @@ class SDataset(Dataset):
         """
         Count how many pixels there's in each class.
         Args:
-            masks (numpy.ndarray): Array containg the masks of each image
+            masks (numpy.ndarray): Array containing the masks of each image
             num_classes (int): Total number of classes in the dataset
         Returns:
             counts (numpy.array): An array containing the total number of
@@ -90,7 +90,7 @@ def vis_first_samples(dataset, num_samples=10):
     """
     Visualize the first samples from dataset.
     Args:
-        dataset (SDataset): A dataset object containg the data
+        dataset (SDataset): A dataset object containing the data
         num_samples (int): How many samples are going to be plotted
     """
     class_colors = ["#d73027", "#1a9850", "#9e81d0", "#a6611a", "#fdae61", "#fee08b"]
@@ -132,13 +132,13 @@ def vis_first_samples(dataset, num_samples=10):
 
 
 # ----------------------------------------------------------------------
-# 1) Plot: Majority class couting
+# 1) Plot: Majority class counting
 # ----------------------------------------------------------------------
 def plot_majority_class_counts(masks: torch.Tensor):
     """
     Plot how many masks has a class as its majority class.
     Args:
-        masks (torch.tensor): A tensor containg the masks of
+        masks (torch.tensor): A tensor containing the masks of
             each image
     """
 
@@ -166,7 +166,7 @@ def plot_mean_class_percentage(masks: torch.Tensor):
     """
     Plot average percentage of each class in the dataset.
     Args:
-        masks (torch.tensor): A tensor containg the masks of
+        masks (torch.tensor): A tensor containing the masks of
             each image
     """
 
@@ -176,8 +176,8 @@ def plot_mean_class_percentage(masks: torch.Tensor):
 
     mean_perc = []
     for cls in range(num_classes):
-        cls_pixels = (flat == cls).float().mean(dim=1)  # % em cada mask
-        mean_perc.append(cls_pixels.mean().item())      # média entre masks
+        cls_pixels = (flat == cls).float().mean(dim=1)
+        mean_perc.append(cls_pixels.mean().item())
 
     mean_perc = np.array(mean_perc)
 
@@ -197,11 +197,12 @@ def construct_normalizer(imgs, inplace=False):
     Construct a torchvision.transforms.Normalize object
     based on a set of images.
     Args:
-        imgs (numpy.ndarray): The array containg the images
-            to be considered during the Normalize construction.
-        inplace (bool): bool to make this operation in-place.
+        imgs (numpy.ndarray): The array containing the images
+            to be considered during the Normalize construction
+        inplace (bool): bool to make this operation in-place
     Returns:
-        
+        (torchvision.transforms.Normalize): A normalizer
+        object
     """
     flat = imgs.flatten()
     mean = flat.mean()
