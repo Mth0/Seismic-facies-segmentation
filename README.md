@@ -12,7 +12,7 @@
 
 ---
 
-# 1. Introdução
+## Introdução
 
 ## O Desafio
 
